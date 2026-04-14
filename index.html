@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Nosso Presente 💖</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chuva-coracoes"></div>
+  <!-- TELA 1 -->
+  <div id="tela1" class="tela ativa">
+    <h1>Deseja iniciar o seu presente? 🎁</h1>
+    <button id="sim">Sim</button>
+    <button id="nao">Não</button>
+  </div>
+
+  <!-- TELA 2 -->
+  <div id="tela2" class="tela" style="display:none;">
+    <h1 id="contador"></h1>
+    <p style="font-size: 30px;">Estamos juntos há todo esse tempo... e a cada dia eu te amo mais 💖</p>
+    <img id="foto" src="fotos/foto1.jpg">
+    <button id="proximo" style="display:none;">Última etapa 💖</button>
+  </div>
+
+  <!-- TELA 3 -->
+  <div id="tela3" class="tela" style="display:none;">
+    <h1>Qual foi o dia em que nos conhecemos? 💖</h1>
+    <input type="text" id="resposta">
+    <button onclick="verificar()">Responder</button>
+    <p id="erro"></p>
+  </div>
+
+
+  <!-- TELA FINAL -->
+<div id="tela4" class="tela" style="display:none;">
+  <h1 id="texto"></h1>
+  <button id="reiniciar">Recomeçar 💫</button>
+</div>
+
+  <audio id="musica" src="assets/musica.mp3"></audio>
+  <script src="script.js">document.getElementById("sim").addEventListener("click", () => {
+  const musica = document.getElementById("musica");
+  musica.play();
+});</script>
+</body>
+</html>
