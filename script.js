@@ -8,45 +8,38 @@ const img = document.getElementById("foto");
 const musica = document.getElementById("musica");
 const botaoProximo = document.getElementById("proximo");
 const textoFinal = document.getElementById("texto");
+const botaoReiniciar = document.getElementById("reiniciar");
 
-// Função para alternar telas com transição suave
+let intervalo; // controle do slideshow
+let trocas = 0;
+let index = 0;
+
+// Função para alternar telas
 function mostrarTela(idTela) {
-  // esconde todas
   document.querySelectorAll(".tela").forEach(tela => {
     tela.classList.remove("ativa");
     tela.style.display = "none";
   });
-
-  // mostra a escolhida
   const tela = document.getElementById(idTela);
   tela.style.display = "flex";
-  setTimeout(() => tela.classList.add("ativa"), 50); // delay para ativar transição
+  setTimeout(() => tela.classList.add("ativa"), 50);
 }
 
+// =========================
+// 💖 CHUVA DE CORAÇÕES
+// =========================
 function criarCoracao() {
   const coracao = document.createElement("div");
   const coracoes = ["💐", "💝", "💌", "💫", "💗", "❤️", "✨", "🌸"];
   coracao.classList.add("coracao");
- coracao.innerText = coracoes[Math.floor(Math.random() * coracoes.length)];
-
-  // posição horizontal aleatória
+  coracao.innerText = coracoes[Math.floor(Math.random() * coracoes.length)];
   coracao.style.left = Math.random() * 100 + "vw";
-
-  // duração da queda
   coracao.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
-  // tamanho aleatório
-  const tamanho = Math.random() * 20 + 10;
-  coracao.style.fontSize = tamanho + "px";
-
-  // leve rotação inicial
+  coracao.style.fontSize = (Math.random() * 20 + 10) + "px";
   coracao.style.transform = `rotate(${Math.random() * 360}deg)`;
-
   document.getElementById("chuva-coracoes").appendChild(coracao);
-
   setTimeout(() => coracao.remove(), 6000);
 }
-
 setInterval(criarCoracao, 250);
 
 // =========================
@@ -55,17 +48,18 @@ setInterval(criarCoracao, 250);
 if (botaoNao && botaoSim) {
   botaoNao.addEventListener("mouseover", () => {
     const largura = window.innerWidth - 100;
-
     const altura = window.innerHeight - 50;
     const x = Math.random() * largura;
     const y = Math.random() * altura;
     botaoNao.style.left = `${x}px`;
     botaoNao.style.top = `${y}px`;
   });
-  
 
   botaoSim.addEventListener("click", () => {
+    musica.currentTime = 0;
+    musica.play();
     mostrarTela("tela2");
+    iniciarSlideshow();
   });
 }
 
@@ -87,9 +81,6 @@ if (contador && img) {
     "fotos/foto4.jpg","fotos/foto5.jpg","fotos/foto6.jpg",
     "fotos/foto7.jpg","fotos/foto8.jpg","fotos/foto9.jpg","fotos/foto10.jpg"
   ];
-  let index = 0;
-
-  let trocas = 0;
 
   function trocarFoto() {
     img.style.opacity = 0;
@@ -104,13 +95,15 @@ if (contador && img) {
       }
     }, 1500);
   }
-  const intervalo = setInterval(trocarFoto, 4000);
 
-  document.addEventListener("click", () => musica.play(), { once: true });
-
-  setInterval(() => {
-    localStorage.setItem("tempoMusica", musica.currentTime);
-  }, 1000);
+  function iniciarSlideshow() {
+    index = 0;
+    trocas = 0;
+    img.src = fotos[index];
+    botaoProximo.style.display = "none";
+    clearInterval(intervalo);
+    intervalo = setInterval(trocarFoto, 4000);
+  }
 
   if (botaoProximo) {
     botaoProximo.addEventListener("click", () => {
@@ -131,37 +124,29 @@ function verificar() {
     iniciarTelaFinal();
   } else {
     document.getElementById("erro").innerText =
-      "Como Assim você não lembra? O Certo Não Era Nem Tentar De Novo";
+      "Como assim você não lembra? O certo não era nem tentar de novo";
   }
-}
-
-// Função para alternar telas com transição suave
-function mostrarTela(idTela) {
-  document.querySelectorAll(".tela").forEach(tela => {
-    tela.classList.remove("ativa");
-    tela.style.display = "none";
-  });
-  const tela = document.getElementById(idTela);
-  tela.style.display = "flex";
-  setTimeout(() => tela.classList.add("ativa"), 50);
 }
 
 // =========================
 // 💌 TELA FINAL
 // =========================
 function iniciarTelaFinal() {
-
   if (textoFinal) {
-    
-    const mensagem = `Desde que você entrou na minha vida, 
-    tudo ganhou mais cor, mais sentido e mais alegria. 
-    Cada momento ao seu lado é especial, e até nos dias mais difíceis, 
-    é em você que encontro força e paz. Seu sorriso ilumina meus pensamentos, 
-    e o seu carinho faz meu coração se sentir em casa. 
-    Eu te amo de um jeito que vai além das palavras, 
-    e sou muito grato por ter você comigo em cada passo dessa caminhada 💖`;
+    const mensagem = `Meu Amor, hoje completamos 5 anos, 5 anos que eu compartilho
+    minha vida com você, é até dificil descrever o que esses 5 anos significam para mim.
+    Esses 5 anos com você me fizeram crescer mais rapido do que eu jamais imaginei,
+    nunca imaginei que um simples "oi" pudesse mudar tanto a minha vida, mas mudou,
+    do seu lado aprendi oq é amar e ser amado de verdade, aprendi a ser mais paciente, mais compreensivo, mais feliz.
+    Quero te agradecer por tudo que você já fez e faz por mim, pelas nossas conversas,
+    pelos momentos que eu estava mal e você me fez sorrir. Você foi, e é uma das melhores coisas que
+    já aconteceram comigo. Existem tantas coisas que admiro em você.
+    O seu esforço, a sua dedicação, a sua inteligência, o seu jeito bobo, que sempre me faz sorrir
+    e te amar cada vez mais, o seu sorriso, que é a coisa mais linda que eu já vi, o seu abraço, que é o melhor lugar do mundo.
+    Eu te amo muito, e quero passar muitos e muitos anos ao seu lado, te fazendo feliz, te amando cada vez mais, e vivendo a nossa história de amor.
+    Feliz aniversário de namoro, meu amor! 💖`;
     let i = 0;
-    textoFinal.innerHTML = ""; // limpa antes de digitar
+    textoFinal.innerHTML = "";
     function digitar() {
       if (i < mensagem.length) {
         textoFinal.innerHTML += mensagem.charAt(i);
@@ -171,16 +156,14 @@ function iniciarTelaFinal() {
     }
     digitar();
 
-    
-
-    // 👉 Botão de reinício
-
-    const botaoReiniciar = document.getElementById("reiniciar");
     if (botaoReiniciar) {
       botaoReiniciar.addEventListener("click", () => {
-        // volta para a tela inicial
         mostrarTela("tela1");
-        textoFinal.innerHTML = ""; // limpa mensagem final
+        textoFinal.innerHTML = "";
+        document.getElementById("erro").innerText = "";
+        botaoProximo.style.display = "none";
+        img.src = "fotos/foto1.jpg";
+        clearInterval(intervalo);
       });
     }
   }
