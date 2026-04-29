@@ -1,6 +1,4 @@
-// =========================
-// 🎯 DETECTAR ELEMENTOS
-// =========================
+//  DETECTAR ELEMENTOS
 const botaoNao = document.getElementById("nao");
 const botaoSim = document.getElementById("sim");
 const contador = document.getElementById("contador");
@@ -25,9 +23,7 @@ function mostrarTela(idTela) {
   setTimeout(() => tela.classList.add("ativa"), 50);
 }
 
-// =========================
-// 💖 CHUVA DE CORAÇÕES
-// =========================
+// CHUVA DE CORAÇÕES
 function criarCoracao() {
   const coracao = document.createElement("div");
   const coracoes = ["💐", "💝", "💌", "💫", "💗", "❤️", "✨", "🌸"];
@@ -42,9 +38,7 @@ function criarCoracao() {
 }
 setInterval(criarCoracao, 250);
 
-// =========================
-// 🏃 TELA INICIAL
-// =========================
+// TELA INICIAL
 if (botaoNao && botaoSim) {
   botaoNao.addEventListener("mouseover", () => {
     const largura = window.innerWidth - 100;
@@ -63,9 +57,7 @@ if (botaoNao && botaoSim) {
   });
 }
 
-// =========================
-// 💖 TELA 2
-// =========================
+// TELA 2
 if (contador && img) {
   const dataInicio = new Date("2021-04-30");
   function atualizarContador() {
@@ -112,9 +104,7 @@ if (contador && img) {
   }
 }
 
-// =========================
-// ❓ TELA 3
-// =========================
+// TELA 3
 function verificar() {
   let resposta = document.getElementById("resposta")?.value.trim();
   if (!resposta) return;
@@ -128,9 +118,7 @@ function verificar() {
   }
 }
 
-// =========================
-// 💌 TELA FINAL
-// =========================
+// TELA FINAL
 function iniciarTelaFinal() {
   if (textoFinal) {
     const mensagem = `Meu Amor, hoje completamos 5 anos, 5 anos que eu compartilho
